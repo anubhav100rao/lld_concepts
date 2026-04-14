@@ -61,6 +61,9 @@ export const TOPIC_MAPPING: Record<string, string> = {
   'priority_queue': 'algorithms',
   'stack_queue': 'algorithms',
   'tries': 'algorithms',
+  'arrays': 'algorithms',
+  'trees': 'algorithms',
+  'two_pointers_sliding_window': 'algorithms',
 };
 
 // Ordered list of all category IDs (matches sidebar order)
