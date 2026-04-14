@@ -1,73 +1,144 @@
-# React + TypeScript + Vite
+# LLD Masterclass
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, interactive web application for learning **Low-Level Design** and **System Design** concepts. Browse detailed technical deep-dives organized by domain, complete with code examples, database schemas, API contracts, and architectural trade-offs.
 
-Currently, two official plugins are available:
+**Built with React + TypeScript + Vite**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🖥️ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Categorized sidebar navigation** — 11 domains with nested subtopics
+- **Markdown-powered content** — write once in `.md`, auto-discovered and rendered
+- **Syntax highlighting** — code blocks with language-aware highlighting
+- **LaTeX math support** — render formulas and complexity notation with KaTeX
+- **Search & filter** — find topics instantly across all categories
+- **Responsive design** — works on desktop and mobile with a collapsible sidebar
+- **Breadcrumb navigation** — always know where you are
+- **Dark theme** — easy on the eyes
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📚 Content Domains
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| # | Category | Topics |
+|---|----------|--------|
+| 1 | **Core Infrastructure & Storage** | Distributed Unique ID Generator, Back-of-the-Envelope Calculations |
+| 2 | **Concurrency & Scheduling** | Distributed Lock |
+| 3 | **Networking & Protocols** | — |
+| 4 | **Messaging & Event Systems** | Notification Service |
+| 5 | **API & Access Control** | Permission Systems |
+| 6 | **File Systems & IO** | — |
+| 7 | **Payments & Transactions** | — |
+| 8 | **Observability & Reliability** | — |
+| 9 | **Caching & Proxies** | Redis |
+| 10 | **Practical System Components** | URL Shortener, Elevator Design, Ride Matching Engine, Code Deployment Pipeline |
+| 11 | **Algorithms & Data Structures** | Dynamic Programming, Binary Search, Graphs, Greedy, Priority Queue, Stack & Queue, Tries |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 18
+- npm
+
+### Install & Run
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Build for Production
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npm run preview
 ```
+
+---
+
+## 📁 Project Structure
+
+```
+lld/
+├── content/               # Markdown content files (auto-discovered)
+│   ├── redis.md
+│   ├── distributed_lock.md
+│   ├── elevator_design.md
+│   └── ...
+├── docs/                  # Internal documentation
+├── src/
+│   ├── components/
+│   │   ├── Sidebar.tsx    # Category navigation with expand/collapse
+│   │   └── MarkdownViewer.tsx  # Renders markdown with syntax highlighting + KaTeX
+│   ├── pages/
+│   │   ├── Dashboard.tsx  # Landing page
+│   │   └── ContentPage.tsx  # Topic viewer with breadcrumbs
+│   ├── utils/
+│   │   └── contentLoader.ts  # Dynamic markdown loading + topic→category mapping
+│   ├── App.tsx            # Router setup
+│   ├── main.tsx           # Entry point
+│   └── index.css          # Global styles + design system
+├── index.html
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
+```
+
+---
+
+## ➕ Adding New Content
+
+1. Create a markdown file in `content/` (e.g., `content/rate_limiter.md`)
+2. Add a mapping entry in `src/utils/contentLoader.ts`:
+
+```typescript
+export const TOPIC_MAPPING: Record<string, string> = {
+  // ... existing entries
+  'rate_limiter': 'api'   // maps to "API & Access Control" category
+};
+```
+
+3. The topic auto-appears in the sidebar under its category. No other changes needed.
+
+### Available categories
+
+| Category ID | Display Name |
+|-------------|-------------|
+| `core-infrastructure` | Core Infrastructure & Storage |
+| `concurrency` | Concurrency & Scheduling |
+| `networking` | Networking & Protocols |
+| `messaging` | Messaging & Event Systems |
+| `api` | API & Access Control |
+| `file-systems` | File Systems & IO |
+| `payments` | Payments & Transactions |
+| `observability` | Observability & Reliability |
+| `caching` | Caching & Proxies |
+| `practical-systems` | Practical System Components |
+| `algorithms` | Algorithms & Data Structures |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | React 19 |
+| Language | TypeScript |
+| Bundler | Vite 8 |
+| Routing | React Router v7 |
+| Markdown | react-markdown + remark-gfm |
+| Math | KaTeX (rehype-katex + remark-math) |
+| Code Highlighting | react-syntax-highlighter |
+| Sanitization | DOMPurify |
+
+---
+
+## 📝 License
+
+MIT
